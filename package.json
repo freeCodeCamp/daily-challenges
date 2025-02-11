@@ -1,0 +1,22 @@
+{
+  "name": "daily-challenges",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Microservice to serve freeCodeCamp challenges",
+  "scripts": {
+    "develop": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "seed": "node database/seed.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "freeCodeCamp",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongodb": "^6.14.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "challengeId": "5900f36e1000cf542c50fe80",
+  "title": "V  A  P  O  R  W  A  V  E",
+  "description": "<section id=\"description\">\n<p>Given a string, remove all spaces from the string, then insert two spaces between every character and uppercase all letters.</p>\n</section>",
+  "javascript": {
+    "tests": [
+      {
+        "text": "<p><code>vaporwave('Hello World')</code> should return a <code>H  E  L  L  O  W  O  R  L  D</code>.</p>",
+        "testString": "assert.strictEqual(vaporwave('Hello World'), 'H  E  L  L  O  W  O  R  L  D');"
+      }
+    ],
+    "challengeFiles": [
+      {
+        "fileKey": "scriptjs",
+        "contents": "function vaporwave(str) {\n\n  return str;\n}\n\nconsole.log(vaporwave('hello world'));"
+      }
+    ],
+    "disableLoopProtectTests": true
+  },
+  "python": {
+    "tests": [
+      {
+        "text": "<p><code>vaporwave(\"hello world\")</code> should return <code>H  E  L  L  O  W  O  R  L  D</code>.</p>",
+        "testString": "({\n  test: () => {\n    runPython(`\nfrom unittest import TestCase\n\nTestCase().assertEqual(vaporwave(\"hello world\"), 'H  E  L  L  O  W  O  R  L  D')`);\n  }\n})"
+      }
+    ],
+    "challengeFiles": [
+      {
+        "fileKey": "mainpy",
+        "contents": "def vaporwave(str):\n\n    return str\n\nprint(f'\\n{vaporwave(\"hello world\")}')"
+      }
+    ]
+  }
+}
