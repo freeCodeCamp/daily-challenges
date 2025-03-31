@@ -15,7 +15,7 @@ const seed = async () => {
   const daysToAdd = 7;
 
   const client = new MongoClient(MONGO_URI);
-
+  // todo: use challengeId as mongo ID?
   try {
     await client.connect();
     const db = client.db('curriculum');
@@ -36,7 +36,6 @@ const seed = async () => {
       });
     }
 
-    // Insert data into MongoDB
     const result = await collection.insertMany(challenges);
     console.log(`Inserted ${result.insertedCount} challenges`);
   } catch (error) {
