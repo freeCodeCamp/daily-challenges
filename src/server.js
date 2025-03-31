@@ -21,7 +21,7 @@ connectDB();
 const db = client.db('curriculum');
 const dailyChallenges = db.collection('dailyChallenges');
 
-// Fetch daily challenge by date
+// challenge by date
 app.get('/api/daily-challenge/date/:date', async (req, res) => {
   const { date } = req.params;
 
@@ -29,7 +29,7 @@ app.get('/api/daily-challenge/date/:date', async (req, res) => {
     const challenge = await dailyChallenges.findOne({ date });
     const todayUsCentral = formatDateUsCentral(new Date());
 
-    // do not send challenge back if it's in the future (relative to today US Central)
+    // do not send challenge back if it's for a future date (relative to today US Central)
     if (challenge && challenge.date <= todayUsCentral) {
       res.status(200).json(challenge);
     } else {
@@ -37,6 +37,29 @@ app.get('/api/daily-challenge/date/:date', async (req, res) => {
     }
   } catch (err) {
     console.error('Error fetching challenge:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// challengeId and date of all challenges <= today
+app.get('/api/daily-challenge/all', async (req, res) => {
+  try {
+    const todayUsCentral = formatDateUsCentral(new Date());
+    const challenges = await dailyChallenges.find(
+      {},
+      { projection: { challengeId: 1, date: 1, _id: 0 } }
+    ).toArray();
+
+    if (challenges) {
+      // only send challenges <= today
+      const availableChallenges = challenges.filter((c) => c.date <= todayUsCentral);
+
+      res.status(200).json(availableChallenges);
+    } else {
+      res.status(404).json({ error: 'Challenges not found' });
+    }
+  } catch (err) {
+    console.error('Error fetching challenges:', err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

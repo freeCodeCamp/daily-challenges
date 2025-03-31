@@ -5,8 +5,8 @@
   "javascript": {
     "tests": [
       {
-        "text": "<p><code>vaporwave('Hello World')</code> should return a <code>H  E  L  L  O  W  O  R  L  D</code>.</p>",
-        "testString": "assert.strictEqual(vaporwave('Hello World'), 'H  E  L  L  O  W  O  R  L  D');"
+        "text": "<p><code>vaporwave('hello world')</code> should return a <code>H  E  L  L  O  W  O  R  L  D</code>.</p>",
+        "testString": "assert.strictEqual(vaporwave('hello world'), 'H  E  L  L  O  W  O  R  L  D');"
       }
     ],
     "challengeFiles": [
