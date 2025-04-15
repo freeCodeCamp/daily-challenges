@@ -8,3 +8,7 @@ export function formatDateUsCentral(dateObj) {
     })
     .replace(/\//g, '-');
 }
+
+export function getTodayUsCentral() {
+  return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+}
