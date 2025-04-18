@@ -39,7 +39,7 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
   }
 });
 
-// challengeId and date of all challenges <= today
+// challengeId and date of all challenges <= today US Central
 router.get('/api/daily-challenge/all', async (req, res) => {
   try {
     const todayUsCentral = getTodayUsCentral();
