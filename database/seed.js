@@ -11,7 +11,7 @@ dotenv.config({ path: resolve(__dirname, '../.env') });
 const { MONGO_URI } = process.env;
 
 const seed = async () => {
-  const daysToAdd = 10;
+  const daysToAdd = 100;
   // -1 means it seeds a challenge for tomorrow (UTC) and then moves backwards daysToAdd days
   const startingDate = -1;
 
