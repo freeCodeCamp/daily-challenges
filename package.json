@@ -4,19 +4,23 @@
   "type": "module",
   "description": "Microservice to serve freeCodeCamp challenges",
   "scripts": {
-    "develop": "nodemon src/server.js",
+    "develop": "tsx watch src/server.js",
     "start": "node src/server.js",
-    "seed": "node database/seed.js",
+    "seed": "tsx database/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "freeCodeCamp",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "mongodb": "^6.14.1"
+    "express": "^5.1.0",
+    "mongodb": "^6.14.1",
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.3",
+    "nodemon": "^3.1.9",
+    "tsx": "^4.19.3"
   }
 }

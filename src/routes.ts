@@ -14,7 +14,7 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
     });
   }
 
-  const [month, day, year] = date.split('-').map(Number);
+  const [month, day, year] = date.split('-').map(Number) as [number, number, number];
 
   const challengeDate = new Date(Date.UTC(year, month - 1, day));
 
@@ -29,13 +29,13 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
 
     // do not send challenge back if it's for a future date (relative to today US Central)
     if (challenge && challenge.date <= todayUsCentral) {
-      res.status(200).json(challenge);
+      return res.status(200).json(challenge);
     } else {
-      res.status(404).json({ error: 'Challenge not found for this date' });
+      return res.status(404).json({ error: 'Challenge not found for this date' });
     }
   } catch (err) {
     console.error('Error fetching challenge:', err);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 

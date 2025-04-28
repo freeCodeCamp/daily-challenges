@@ -2,9 +2,12 @@ import express from 'express';
 import 'dotenv/config';
 import { MongoClient } from 'mongodb';
 import routes from './routes.js';
+import assert from 'node:assert';
 
 const app = express();
 const portNum = process.env.PORT || 3000;
+
+assert.ok(process.env.MONGO_URI)
 
 const client = new MongoClient(process.env.MONGO_URI);
 

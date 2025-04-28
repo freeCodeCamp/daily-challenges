@@ -1,4 +1,4 @@
-export function formatDateUsCentral(dateObj) {
+export function formatDateUsCentral(dateObj: Date) {
   return dateObj
     .toLocaleString('en-US', {
       timeZone: 'America/Chicago',
