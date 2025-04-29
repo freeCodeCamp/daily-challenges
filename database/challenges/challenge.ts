@@ -1,4 +1,4 @@
-{
+export const baseChallenge = {
   "challengeId": "5900f36e1000cf542c50fe80",
   "title": "V  A  P  O  R  W  A  V  E",
   "description": "<section id=\"description\">\n<p>Given a string, remove all spaces from the string, then insert two spaces between every character and uppercase all letters.</p>\n</section>",

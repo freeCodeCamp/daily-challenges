@@ -1,21 +1,20 @@
-import { readFileSync } from 'fs';
-import { join, resolve, dirname } from 'path';
+import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import { MongoClient, ObjectId } from 'mongodb';
+import assert from 'node:assert';
+import { baseChallenge } from './challenges/challenge.js';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-dotenv.config({ path: resolve(__dirname, '../.env') });
-const { MONGO_URI } = process.env;
 
 const seed = async () => {
   const daysToAdd = 100;
   // -1 means it seeds a challenge for tomorrow (UTC) and then moves backwards daysToAdd days
   const startingDate = -1;
 
-  const client = new MongoClient(MONGO_URI);
+  assert.ok(process.env.MONGO_URI);
+
+  const client = new MongoClient(process.env.MONGO_URI);
   // todo: use challengeId as mongo ID?
   try {
     await client.connect();
@@ -23,7 +22,6 @@ const seed = async () => {
     const collection = db.collection('dailyChallenges');
     await collection.drop();
 
-    const baseData = JSON.parse(readFileSync(join(__dirname, 'challenges', 'challenge.json'), 'utf-8'));
     const challenges = [];
 
     const today = new Date();
@@ -32,7 +30,7 @@ const seed = async () => {
       const date = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() - i));
 
       challenges.push({
-        ...baseData,
+        ...baseChallenge,
         challengeId: new ObjectId().toHexString(),
         date,
       });
