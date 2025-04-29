@@ -6,6 +6,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
+    "isolatedModules": true,
     "noEmit": true,
     "noUncheckedIndexedAccess": true
   }
