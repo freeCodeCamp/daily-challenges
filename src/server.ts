@@ -1,34 +1,22 @@
-import { MongoClient } from 'mongodb';
-import express from 'express';
-import assert from 'node:assert';
-import 'dotenv/config';
+import { client } from './db';
+import app from './app';
+import debug from 'debug';
 
-import routes from './routes.js';
+const log = debug('app:server');
 
-assert.ok(process.env.MONGO_URI);
-const client = new MongoClient(process.env.MONGO_URI);
 const portNum = process.env.PORT || 3000;
 
-const app = express();
-
-const db = client.db('curriculum');
-export const dailyChallenges = db.collection('dailyChallenges');
-
-app.use(express.json());
-app.use(routes);
-
-async function startServer() {
+(async function() {
   try {
-    console.log('Connecting to database...');
+    log('Connecting to database...');
     await client.connect();
-    console.log('Connected to MongoDB');
-    console.log('Starting server...');
+    log('Connected to MongoDB');
+    log('Starting server...');
     app.listen(portNum, () => {
-      console.log(`Listening on port ${portNum}`);
+      log(`Server listening on port ${portNum}`);
     });
   } catch (err) {
-    console.error('MongoDB connection error:', err);
+    log('MongoDB connection error:', err);
   }
 }
-
-startServer();
+)();

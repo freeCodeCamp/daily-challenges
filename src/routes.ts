@@ -1,7 +1,8 @@
 import { Router } from 'express';
-import { dailyChallenges } from './server.js';
-import { getTodayUsCentral } from './helpers.js';
-import { handleError, HttpError } from './error.js';
+
+import { dailyChallenges } from './db';
+import { getTodayUsCentral } from './utils/helpers';
+import { handleError, HttpError } from './utils/errors';
 
 const router = Router();
 
@@ -11,18 +12,21 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
 
   try {
     if (!/^\d{1,2}-\d{1,2}-\d{4}$/.test(date)) {
-      throw new HttpError(400, 'Invalid date format. Please use M-D-YYYY or MM-DD-YYYY');
+      throw new HttpError(400, `Invalid date format: "${date}". Please use "M-D-YYYY"`);
     }
 
     const [month, day, year] = date.split('-').map(Number) as [number, number, number];
     const challengeDate = new Date(Date.UTC(year, month - 1, day));
 
-    if (challengeDate.getUTCFullYear() !== year || challengeDate.getUTCMonth() !== month - 1 || challengeDate.getUTCDate() !== day) {
-      throw new HttpError(400, 'Invalid calendar date');
+    if (
+      challengeDate.getUTCFullYear() !== year ||
+      challengeDate.getUTCMonth() !== month - 1 ||
+      challengeDate.getUTCDate() !== day
+    ) {
+      throw new HttpError(400, `Invalid calendar date: "${date}"`);
     }
 
     const challenge = await dailyChallenges.findOne({ date: challengeDate });
-
     const todayUsCentral = getTodayUsCentral();
 
     // do not send challenge back if it's for a future date (relative to today US Central)
@@ -31,7 +35,7 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
       return;
 
     } else {
-      throw new HttpError(404, 'Challenge not found for this date');
+      throw new HttpError(404, `Challenge not found for "${date}"`);
     }
 
   } catch (err) {
@@ -49,7 +53,7 @@ router.get('/api/daily-challenge/all', async (req, res) => {
       res.status(200).json(challenges);
       return;
     } else {
-      throw new HttpError(404, 'Challenges not found');
+      throw new HttpError(404, 'No Challenges found');
     }
 
   } catch (err) {
