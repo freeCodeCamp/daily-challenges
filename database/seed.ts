@@ -1,11 +1,7 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
 import 'dotenv/config';
 import { MongoClient, ObjectId } from 'mongodb';
 import assert from 'node:assert';
-import { baseChallenge } from './challenges/challenge.js';
-
-const __filename = fileURLToPath(import.meta.url);
+import { baseChallenge } from './challenges/challenge';
 
 const seed = async () => {
   const daysToAdd = 100;
