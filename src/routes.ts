@@ -54,7 +54,7 @@ router.get('/api/daily-challenge/all', async (req, res) => {
   }
 });
 
-// return the { date } of the newest challenge so we can check how many challenges are available
+// return { date } of the newest challenge so we can check how many challenges are available
 router.get('/api/daily-challenge/newest', async (req, res) => {
   try {
     const newestChallenge = await dailyCodingChallenges.findOne(
