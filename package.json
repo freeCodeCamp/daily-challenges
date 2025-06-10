@@ -6,7 +6,7 @@
     "build": "tsc --project tsconfig-build.json",
     "develop": "DEBUG=app* tsx watch src/server.js",
     "start": "DEBUG=app* node dist/server.js",
-    "seed": "tsx database/seed.js",
+    "seed": "tsx src/seed/seed.js",
     "test": "jest --force-exit"
   },
   "author": "freeCodeCamp",

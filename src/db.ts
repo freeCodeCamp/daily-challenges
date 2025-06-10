@@ -5,7 +5,7 @@ import 'dotenv/config';
 assert.ok(process.env.MONGO_URI);
 
 const client = new MongoClient(process.env.MONGO_URI);
-const db = client.db('curriculum');
+const db = client.db('freecodecamp'); 
 
-export const dailyChallenges = db.collection('dailyChallenges');
+export const dailyCodingChallenges = db.collection('DailyCodingChallenges');
 export { client };
