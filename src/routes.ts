@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { parse, isValid } from 'date-fns';
 
 import { dailyCodingChallenges } from './db';
-import { getNowUsCentral } from './utils/helpers';
+import { getNowUsCentral, getUtcMidnight } from './utils/helpers';
 import { handleError, HttpError } from './utils/errors';
 
 const router = Router();
@@ -18,12 +18,8 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
       throw new HttpError(400, `Invalid date: "${date}". Please use "M-D-YYYY"`);
     }
 
-    // Convert parsed date to UTC at midnight
-    const challengeDate = new Date(Date.UTC(
-      parsedDate.getFullYear(),
-      parsedDate.getMonth(),
-      parsedDate.getDate()
-    ));
+    // Convert parsed date to UTC at midnight for database lookup
+    const challengeDate = getUtcMidnight(parsedDate);
 
     const challenge = await dailyCodingChallenges.findOne({ date: challengeDate });
 

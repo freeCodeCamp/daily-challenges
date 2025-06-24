@@ -7,9 +7,11 @@
 
 import 'dotenv/config';
 import { ObjectId } from 'mongodb';
+import { addDays } from 'date-fns';
+
 import { challenge } from './challenge';
 import { client, dailyCodingChallenges } from '../db';
-import { addDays } from 'date-fns';
+import { getUtcMidnight } from '../utils/helpers';
 
 const seed = async () => {
   if (process.env.ALLOW_SEED !== 'true') {
@@ -26,12 +28,7 @@ const seed = async () => {
     await dailyCodingChallenges.drop();
 
     const challenges = [];
-
-    const todayUtcMidnight = new Date(Date.UTC(
-      new Date().getUTCFullYear(),
-      new Date().getUTCMonth(),
-      new Date().getUTCDate()
-    ));
+    const todayUtcMidnight = getUtcMidnight(new Date());
 
     for (let i = -futureDaysToAdd; i < daysToAdd - futureDaysToAdd; i++) {
       const date = addDays(todayUtcMidnight, -i);
