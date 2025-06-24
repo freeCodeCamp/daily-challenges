@@ -7,29 +7,32 @@
     "develop": "DEBUG=app* tsx watch src/server.js",
     "start": "DEBUG=app* node dist/server.js",
     "seed": "tsx src/seed/seed.js",
-    "test": "jest --force-exit"
+    "test": "jest --force-exit",
+    "debug": "tsx src/debug.js"
   },
   "author": "freeCodeCamp",
   "license": "ISC",
   "dependencies": {
-    "debug": "^4.4.0",
-    "dotenv": "^16.4.7",
-    "express": "^5.1.0",
-    "mongodb": "^6.14.1",
-    "typescript": "^5.8.3"
+    "date-fns": "4.1.0",
+    "date-fns-tz": "3.2.0",
+    "debug": "4.4.0",
+    "dotenv": "16.4.7",
+    "express": "5.1.0",
+    "mongodb": "6.14.1",
+    "typescript": "5.8.3"
   },
   "devDependencies": {
-    "@types/debug": "^4.1.12",
-    "@types/express": "^5.0.1",
-    "@types/jest": "^29.5.14",
-    "@types/node": "^22.15.3",
-    "@types/supertest": "^6.0.3",
-    "jest": "^29.7.0",
-    "nodemon": "^3.1.9",
-    "supertest": "^7.1.0",
-    "ts-jest": "^29.3.2",
-    "ts-node": "^10.9.2",
-    "tsx": "^4.19.3"
+    "@types/debug": "4.1.12",
+    "@types/express": "5.0.1",
+    "@types/jest": "29.5.14",
+    "@types/node": "22.15.3",
+    "@types/supertest": "6.0.3",
+    "jest": "29.7.0",
+    "nodemon": "3.1.9",
+    "supertest": "7.1.0",
+    "ts-jest": "29.3.2",
+    "ts-node": "10.9.2",
+    "tsx": "4.19.3"
   },
   "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977"
 }

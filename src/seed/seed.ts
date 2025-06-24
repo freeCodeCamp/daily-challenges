@@ -1,14 +1,15 @@
 /*
  * Script to seed the Daily Coding Challenges
  * Not for production use, only for development purposes.
- * To seed actualy challenges, use the script in the main freeCodeCamp repo
-*/
+ * To seed actual challenges, use the script in the main freeCodeCamp repo
+ * This script should seed the challenges in the same format as that though
+ */
 
 import 'dotenv/config';
 import { ObjectId } from 'mongodb';
-import assert from 'node:assert';
 import { challenge } from './challenge';
 import { client, dailyCodingChallenges } from '../db';
+import { addDays } from 'date-fns';
 
 const seed = async () => {
   if (process.env.ALLOW_SEED !== 'true') {
@@ -19,7 +20,6 @@ const seed = async () => {
   const daysToAdd = 10;
   // 2 means it seeds a challenge for the day after tomorrow (UTC) and then move backwards daysToAdd days
   const futureDaysToAdd = 2;
-  
 
   try {
     await client.connect();
@@ -27,10 +27,14 @@ const seed = async () => {
 
     const challenges = [];
 
-    const today = new Date();
+    const todayUtcMidnight = new Date(Date.UTC(
+      new Date().getUTCFullYear(),
+      new Date().getUTCMonth(),
+      new Date().getUTCDate()
+    ));
 
     for (let i = -futureDaysToAdd; i < daysToAdd - futureDaysToAdd; i++) {
-      const date = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() - i));
+      const date = addDays(todayUtcMidnight, -i);
 
       challenges.push({
         _id: new ObjectId(),
