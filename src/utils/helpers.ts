@@ -1,14 +1,13 @@
-export function formatDateUsCentral(dateObj: Date) {
-  return dateObj
-    .toLocaleString('en-US', {
-      timeZone: 'America/Chicago',
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit'
-    })
-    .replace(/\//g, '-');
+import { toZonedTime } from 'date-fns-tz';
+
+export function getNowUsCentral() {
+  return toZonedTime(new Date(), 'America/Chicago');
 }
 
-export function getTodayUsCentral() {
-  return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+export function getUtcMidnight(date: Date): Date {
+  return new Date(Date.UTC(
+    date.getUTCFullYear(),
+    date.getUTCMonth(),
+    date.getUTCDate()
+  ));
 }
