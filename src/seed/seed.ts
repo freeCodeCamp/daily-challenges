@@ -19,7 +19,7 @@ const seed = async () => {
     process.exit(1);
   }
 
-  const daysToAdd = 10;
+  const daysToAdd = 100;
   // 2 means it seeds a challenge for the day after tomorrow (UTC) and then move backwards daysToAdd days
   const futureDaysToAdd = 2;
 
