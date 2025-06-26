@@ -35,10 +35,10 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
   }
 });
 
-// challengeId and date of all challenges <= today US Central
+// ID and date of all challenges <= today US Central
 router.get('/api/daily-challenge/all', async (req, res) => {
   try {
-    const challenges = await dailyCodingChallenges.find({ date: { $lte: getNowUsCentral() } }, { projection: { challengeId: 1, date: 1, _id: 0 } }).toArray();
+    const challenges = await dailyCodingChallenges.find({ date: { $lte: getNowUsCentral() } }, { projection: { date: 1 } }).toArray();
 
     if (challenges.length > 0) {
       res.status(200).json(challenges);
