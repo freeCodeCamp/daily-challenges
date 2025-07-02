@@ -1,7 +1,5 @@
 import express from 'express';
-import debug from 'debug';
-
-const log = debug('app:errors');
+import { requestErrorLogger, serverErrorLogger } from './logger';
 
 export class HttpError extends Error {
   status: number;
@@ -12,12 +10,12 @@ export class HttpError extends Error {
   }
 }
 
-export function handleError(err: any, res: express.Response) {
+export function handleError(err: any, req: express.Request, res: express.Response) {
   if (err instanceof HttpError ) {
-    log(err);
+    requestErrorLogger(req, err, err.status);
     res.status(err.status).json({ error: err.message })
   } else {
-    log(err);
+    serverErrorLogger(req, err);
     res.status(500).json({ error: 'Internal server error' })
   }
 

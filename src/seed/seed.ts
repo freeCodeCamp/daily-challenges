@@ -14,11 +14,6 @@ import { client, dailyCodingChallenges } from '../db';
 import { getUtcMidnight } from '../utils/helpers';
 
 const seed = async () => {
-  if (process.env.ALLOW_SEED !== 'true') {
-    console.error('Seeding is not allowed in this environment.');
-    process.exit(1);
-  }
-
   const daysToAdd = 100;
   // 2 means it seeds a challenge for the day after tomorrow (UTC) and then move backwards daysToAdd days
   const futureDaysToAdd = 2;
@@ -50,4 +45,9 @@ const seed = async () => {
   }
 };
 
-seed();
+if (process.env.NODE_ENV === 'development') {
+  seed();
+} else {
+  console.error('Seeding is not allowed in this environment.');
+  process.exit(1);
+}
