@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import { parse, isValid } from 'date-fns';
 
-import { dailyCodingChallenges } from './db';
+import { client, dailyCodingChallenges } from './db';
 import { getNowUsCentral, getUtcMidnight } from './utils/helpers';
 import { handleError, HttpError } from './utils/errors';
+import { requestLogger } from './utils/logger';
 
 const router = Router();
+router.use(requestLogger);
 
 // challenge by date
 router.get('/api/daily-challenge/date/:date', async (req, res) => {
@@ -31,7 +33,7 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
       throw new HttpError(404, `Challenge not found for "${date}"`);
     }
   } catch (err) {
-    handleError(err, res);
+    handleError(err, req, res);
   }
 });
 
@@ -47,7 +49,7 @@ router.get('/api/daily-challenge/all', async (req, res) => {
       throw new HttpError(404, 'No Challenges found');
     }
   } catch (err) {
-    handleError(err, res);
+    handleError(err, req, res);
   }
 });
 
@@ -69,8 +71,33 @@ router.get('/api/daily-challenge/newest', async (req, res) => {
     res.status(200).json(newestChallenge);
     return;
   } catch (err) {
-    handleError(err, res);
+    handleError(err, req, res);
   }
+});
+
+// Status check endpoint
+router.get('/status/health', async (req, res) => {
+  try {
+    await client.db().admin().ping();
+    res.status(200).json({
+      status: 'healthy',
+      database: 'connected',
+      uptime: process.uptime(),
+      timestamp: new Date().toISOString()
+    });
+  } catch (err) {
+    res.status(503).json({
+      status: 'unhealthy',
+      database: 'disconnected',
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// 404 handler - this must be last
+router.use((req, res) => {
+  const error = new HttpError(404, 'Route not found');
+  handleError(error, req, res);
 });
 
 export default router;
