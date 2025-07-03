@@ -32,7 +32,7 @@ const seed = async () => {
         _id: new ObjectId(),
         challengeNumber: daysToAdd - i - futureDaysToAdd,
         date,
-        ...challenge,
+        ...challenge
       });
     }
 
