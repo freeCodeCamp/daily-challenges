@@ -40,7 +40,7 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
 // ID and date of all challenges <= today US Central
 router.get('/api/daily-challenge/all', async (req, res) => {
   try {
-    const challenges = await dailyCodingChallenges.find({ date: { $lte: getNowUsCentral() } }, { projection: { date: 1 } }).toArray();
+    const challenges = await dailyCodingChallenges.find({ date: { $lte: getNowUsCentral() } }, { projection: { date: 1, challengeNumber: 1, title: 1 } }).toArray();
 
     if (challenges.length > 0) {
       res.status(200).json(challenges);
@@ -83,13 +83,13 @@ router.get('/status/health', async (req, res) => {
       status: 'healthy',
       database: 'connected',
       uptime: process.uptime(),
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   } catch (err) {
     res.status(503).json({
       status: 'unhealthy',
       database: 'disconnected',
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
