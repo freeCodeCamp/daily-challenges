@@ -42,13 +42,13 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
   }
 });
 
-// ID and date of all challenges <= today US Central
+// { _id, date, challengeNumber, title, simpleDate } of all challenges <= today US Central
 router.get('/api/daily-challenge/all', async (req, res) => {
   try {
     const challenges = await dailyCodingChallenges
       .find(
         { date: { $lte: getNowUsCentral() } },
-        { projection: { date: 1, challengeNumber: 1, title: 1 } }
+        { projection: { date: 1, challengeNumber: 1, title: 1, simpleDate: 1 } }
       )
       .toArray();
 
@@ -63,14 +63,14 @@ router.get('/api/daily-challenge/all', async (req, res) => {
   }
 });
 
-// return { date } of the newest challenge so we can check how many challenges are available
+// return { date, simpleDate } of the newest challenge so we can check how many challenges are available
 router.get('/api/daily-challenge/newest', async (req, res) => {
   try {
     const newestChallenge = await dailyCodingChallenges.findOne(
       {},
       {
         sort: { date: -1 },
-        projection: { date: 1, _id: 0 }
+        projection: { date: 1, simpleDate: 1, _id: 0 }
       }
     );
 
