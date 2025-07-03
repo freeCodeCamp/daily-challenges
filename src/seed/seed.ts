@@ -11,7 +11,7 @@ import { addDays } from 'date-fns';
 
 import { challenge } from './challenge';
 import { client, dailyCodingChallenges } from '../db';
-import { getUtcMidnight } from '../utils/helpers';
+import { getUtcMidnight, isoToSimpleDate } from '../utils/helpers';
 
 const seed = async () => {
   const daysToAdd = 100;
@@ -32,6 +32,7 @@ const seed = async () => {
         _id: new ObjectId(),
         challengeNumber: daysToAdd - i - futureDaysToAdd,
         date,
+        simpleDate: isoToSimpleDate(date.toISOString()),
         ...challenge
       });
     }
