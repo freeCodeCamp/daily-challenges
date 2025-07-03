@@ -9,8 +9,3 @@ export function getUtcMidnight(date: Date): Date {
     Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
   );
 }
-
-export function isoToSimpleDate(isoDate: string): string {
-  const [year, month, day] = isoDate.split('T')[0]!.split('-');
-  return `${parseInt(month!)}-${parseInt(day!)}-${year}`;
-}
