@@ -83,13 +83,13 @@ router.get('/status/health', async (req, res) => {
       status: 'healthy',
       database: 'connected',
       uptime: process.uptime(),
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString()
     });
   } catch (err) {
     res.status(503).json({
       status: 'unhealthy',
       database: 'disconnected',
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString()
     });
   }
 });
