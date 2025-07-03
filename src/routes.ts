@@ -17,13 +17,18 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
     const parsedDate = parse(date, 'M-d-yyyy', new Date());
 
     if (!isValid(parsedDate)) {
-      throw new HttpError(400, `Invalid date: "${date}". Please use "M-D-YYYY"`);
+      throw new HttpError(
+        400,
+        `Invalid date: "${date}". Please use "M-D-YYYY"`
+      );
     }
 
     // Convert parsed date to UTC at midnight for database lookup
     const challengeDate = getUtcMidnight(parsedDate);
 
-    const challenge = await dailyCodingChallenges.findOne({ date: challengeDate });
+    const challenge = await dailyCodingChallenges.findOne({
+      date: challengeDate
+    });
 
     // do not send challenge back if it's for a future date (relative to today US Central)
     if (challenge && challenge.date <= getNowUsCentral()) {
@@ -40,7 +45,12 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
 // ID and date of all challenges <= today US Central
 router.get('/api/daily-challenge/all', async (req, res) => {
   try {
-    const challenges = await dailyCodingChallenges.find({ date: { $lte: getNowUsCentral() } }, { projection: { date: 1, challengeNumber: 1, title: 1 } }).toArray();
+    const challenges = await dailyCodingChallenges
+      .find(
+        { date: { $lte: getNowUsCentral() } },
+        { projection: { date: 1, challengeNumber: 1, title: 1 } }
+      )
+      .toArray();
 
     if (challenges.length > 0) {
       res.status(200).json(challenges);
@@ -60,7 +70,7 @@ router.get('/api/daily-challenge/newest', async (req, res) => {
       {},
       {
         sort: { date: -1 },
-        projection: { date: 1, _id: 0 },
+        projection: { date: 1, _id: 0 }
       }
     );
 

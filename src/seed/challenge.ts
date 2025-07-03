@@ -7,76 +7,83 @@ export const challenge = {
     tests: [
       {
         text: '<p><code>isBalanced("racecar")</code> should return <code>true</code>.</p>',
-        testString: 'assert.isTrue(isBalanced("racecar"));',
+        testString: 'assert.isTrue(isBalanced("racecar"));'
       },
       {
         text: '<p><code>isBalanced("lorem ipsum")</code> should return <code>true</code>.</p>',
-        testString: 'assert.isTrue(isBalanced("lorem ipsum"));',
+        testString: 'assert.isTrue(isBalanced("lorem ipsum"));'
       },
       {
         text: '<p><code>isBalanced("kitty ipsum")</code> should return <code>false</code>.</p>',
-        testString: 'assert.isFalse(isBalanced("kitty ipsum"));',
+        testString: 'assert.isFalse(isBalanced("kitty ipsum"));'
       },
       {
         text: '<p><code>isBalanced("string")</code> should return <code>false</code>.</p>',
-        testString: 'assert.isFalse(isBalanced("string"));',
+        testString: 'assert.isFalse(isBalanced("string"));'
       },
       {
         text: '<p><code>isBalanced(" ")</code> should return <code>true</code>.</p>',
-        testString: 'assert.isTrue(isBalanced(" "));',
+        testString: 'assert.isTrue(isBalanced(" "));'
       },
       {
         text: '<p><code>isBalanced("abcdefghijklmnopqrstuvwxyz")</code> should return <code>false</code>.</p>',
-        testString: 'assert.isFalse(isBalanced("abcdefghijklmnopqrstuvwxyz"));',
+        testString: 'assert.isFalse(isBalanced("abcdefghijklmnopqrstuvwxyz"));'
       },
       {
         text: '<p><code>isBalanced("123a#b!E&#x26;*456-o.U")</code> should return <code>true</code>.</p>',
-        testString: 'assert.isTrue(isBalanced("123a#b!E&*456-o.U"));',
-      },
+        testString: 'assert.isTrue(isBalanced("123a#b!E&*456-o.U"));'
+      }
     ],
     challengeFiles: [
       {
         contents: 'function isBalanced(str) {\n\n  return str;\n}',
-        fileKey: 'scriptjs',
-      },
-    ],
+        fileKey: 'scriptjs'
+      }
+    ]
   },
   python: {
     tests: [
       {
         text: '<p><code>is_balanced("racecar")</code> should return <code>True</code>.</p>',
-        testString: '({test: () => { runPython(`\nfrom unittest import TestCase\nTestCase().assertTrue(is_balanced("racecar"))`);\n}})',
+        testString:
+          '({test: () => { runPython(`\nfrom unittest import TestCase\nTestCase().assertTrue(is_balanced("racecar"))`);\n}})'
       },
       {
         text: '<p><code>is_balanced("lorem ipsum")</code> should return <code>True</code>.</p>',
-        testString: '({test: () => { runPython(`\nfrom unittest import TestCase\nTestCase().assertTrue(is_balanced("lorem ipsum"))`);\n}})',
+        testString:
+          '({test: () => { runPython(`\nfrom unittest import TestCase\nTestCase().assertTrue(is_balanced("lorem ipsum"))`);\n}})'
       },
       {
         text: '<p><code>is_balanced("kitty ipsum")</code> should return <code>False</code>.</p>',
-        testString: '({test: () => { runPython(`\nfrom unittest import TestCase\nTestCase().assertFalse(is_balanced("kitty ipsum"))`);\n}})',
+        testString:
+          '({test: () => { runPython(`\nfrom unittest import TestCase\nTestCase().assertFalse(is_balanced("kitty ipsum"))`);\n}})'
       },
       {
         text: '<p><code>is_balanced("string")</code> should return <code>False</code>.</p>',
-        testString: '({test: () => { runPython(`\nfrom unittest import TestCase\nTestCase().assertFalse(is_balanced("string"))`);\n}})',
+        testString:
+          '({test: () => { runPython(`\nfrom unittest import TestCase\nTestCase().assertFalse(is_balanced("string"))`);\n}})'
       },
       {
         text: '<p><code>is_balanced(" ")</code> should return <code>True</code>.</p>',
-        testString: '({test: () => { runPython(`\nfrom unittest import TestCase\nTestCase().assertTrue(is_balanced(" "))`);\n}})',
+        testString:
+          '({test: () => { runPython(`\nfrom unittest import TestCase\nTestCase().assertTrue(is_balanced(" "))`);\n}})'
       },
       {
         text: '<p><code>is_balanced("abcdefghijklmnopqrstuvwxyz")</code> should return <code>False</code>.</p>',
-        testString: '({test: () => { runPython(`\nfrom unittest import TestCase\nTestCase().assertFalse(is_balanced("abcdefghijklmnopqrstuvwxyz"))`);\n}})',
+        testString:
+          '({test: () => { runPython(`\nfrom unittest import TestCase\nTestCase().assertFalse(is_balanced("abcdefghijklmnopqrstuvwxyz"))`);\n}})'
       },
       {
         text: '<p><code>is_balanced("123a#b!E&#x26;*456-o.U")</code> should return <code>True</code>.</p>',
-        testString: '({test: () => { runPython(`\nfrom unittest import TestCase\nTestCase().assertTrue(is_balanced("123a#b!E&*456-o.U"))`);\n}})',
-      },
+        testString:
+          '({test: () => { runPython(`\nfrom unittest import TestCase\nTestCase().assertTrue(is_balanced("123a#b!E&*456-o.U"))`);\n}})'
+      }
     ],
     challengeFiles: [
       {
         contents: 'def is_balanced(s):\n\n    return s\n',
-        fileKey: 'mainpy',
-      },
-    ],
-  },
+        fileKey: 'mainpy'
+      }
+    ]
+  }
 };

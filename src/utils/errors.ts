@@ -10,13 +10,17 @@ export class HttpError extends Error {
   }
 }
 
-export function handleError(err: any, req: express.Request, res: express.Response) {
-  if (err instanceof HttpError ) {
+export function handleError(
+  err: any,
+  req: express.Request,
+  res: express.Response
+) {
+  if (err instanceof HttpError) {
     requestErrorLogger(req, err, err.status);
-    res.status(err.status).json({ error: err.message })
+    res.status(err.status).json({ error: err.message });
   } else {
     serverErrorLogger(req, err);
-    res.status(500).json({ error: 'Internal server error' })
+    res.status(500).json({ error: 'Internal server error' });
   }
 
   return;

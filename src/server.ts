@@ -5,7 +5,7 @@ import { serverLog, serverErrorLog } from './utils/logger';
 
 const portNum = process.env.PORT || 3000;
 
-(async function() {
+(async function () {
   try {
     serverLog('Connecting to database...');
 

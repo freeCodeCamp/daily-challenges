@@ -14,11 +14,11 @@ app.use(helmet());
 const allowedOrigins = [
   'https://www.freecodecamp.org',
   'https://www.freecodecamp.dev'
-]
+];
 
 app.use(
   cors({
-    origin: process.env.NODE_ENV === 'production' ? allowedOrigins : true,
+    origin: process.env.NODE_ENV === 'production' ? allowedOrigins : true
   })
 );
 
