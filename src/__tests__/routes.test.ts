@@ -1,9 +1,30 @@
 import request from 'supertest';
 
 import app from '../app';
+import { dailyCodingChallenges } from '../db';
+
+jest.mock('../db', () => ({
+  dailyCodingChallenges: {
+    findOne: jest.fn(),
+    find: jest.fn(() => ({
+      toArray: jest.fn()
+    }))
+  },
+  client: {
+    db: jest.fn(() => ({
+      admin: jest.fn(() => ({
+        ping: jest.fn()
+      }))
+    }))
+  }
+}));
+
+const mockDailyCodingChallenges = dailyCodingChallenges as jest.Mocked<
+  typeof dailyCodingChallenges
+>;
 
 describe('routes', () => {
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks();
   });
 
@@ -31,6 +52,8 @@ describe('routes', () => {
     });
 
     it('should return 404 for a valid but nonexistent date', async () => {
+      mockDailyCodingChallenges.findOne.mockResolvedValue(null);
+
       const response = await request(app).get(
         '/api/daily-challenge/date/1-1-1111'
       );
