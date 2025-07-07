@@ -47,21 +47,21 @@ const yesterdaysChallenge = {
   _id: 'yesterdays-id',
   challengeNumber: 1,
   date: yesterdayUtcMidnight,
-  title: "Yesterday's Title",
+  title: "Yesterday's Title"
 };
 
 const todaysChallenge = {
   _id: 'todays-id',
   challengeNumber: 2,
   date: todayUtcMidnight,
-  title: "Today's Title",
+  title: "Today's Title"
 };
 
 const tomorrowsChallenge = {
   _id: 'tomorrows-id',
   challengeNumber: 3,
   date: tomorrowUtcMidnight,
-  title: "Tomorrow's Title",
+  title: "Tomorrow's Title"
 };
 
 const mockChallenges = [
