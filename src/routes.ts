@@ -4,7 +4,7 @@ import { parse, isValid } from 'date-fns';
 import { client, dailyCodingChallenges } from './db';
 import { getNowUsCentral, getUtcMidnight } from './utils/helpers';
 import { handleError, HttpError } from './utils/errors';
-import { requestLogger } from './utils/logger';
+import { requestLogger, serverErrorLog } from './utils/logger';
 
 const router = Router();
 router.use(requestLogger);
@@ -96,6 +96,8 @@ router.get('/status/health', async (req, res) => {
       timestamp: new Date().toISOString()
     });
   } catch (err) {
+    serverErrorLog(err);
+
     res.status(503).json({
       status: 'unhealthy',
       database: 'disconnected',
