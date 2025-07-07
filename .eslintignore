@@ -1,6 +1,0 @@
-dist/
-node_modules/
-*.js
-jest.config.ts
-.env*
-pnpm-lock.yaml

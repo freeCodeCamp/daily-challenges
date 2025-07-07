@@ -1,5 +1,9 @@
 import express from 'express';
-import { requestErrorLogger, serverErrorLogger } from './logger';
+import {
+  requestErrorLogger,
+  serverErrorLogger,
+  serverErrorLog
+} from './logger';
 
 export class HttpError extends Error {
   status: number;
@@ -11,15 +15,18 @@ export class HttpError extends Error {
 }
 
 export function handleError(
-  err: any,
+  err: HttpError | Error | unknown,
   req: express.Request,
   res: express.Response
 ) {
   if (err instanceof HttpError) {
     requestErrorLogger(req, err, err.status);
     res.status(err.status).json({ error: err.message });
-  } else {
+  } else if (err instanceof Error) {
     serverErrorLogger(req, err);
+    res.status(500).json({ error: 'Internal server error' });
+  } else {
+    serverErrorLog(err);
     res.status(500).json({ error: 'Internal server error' });
   }
 

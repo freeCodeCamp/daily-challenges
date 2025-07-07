@@ -16,3 +16,6 @@ Thumbs.db
 # Docker
 Dockerfile
 docker-compose.yml
+
+# Misc
+README.md
