@@ -4,7 +4,7 @@ on:
   # Run on PRs to main
   pull_request:
     branches: [main]
-  
+
   # Run on pushes to main
   push:
     branches: [main]
@@ -12,33 +12,36 @@ on:
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'pnpm'
-      
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 10
-      
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      
+
+      - name: Copy environment file
+        run: cp sample.env .env
+
       - name: Run TypeScript linting
         run: pnpm run lint:ts
-      
+
       - name: Run Prettier check
         run: pnpm run lint:prettier
-      
+
       - name: Run TypeScript build
         run: pnpm run build
-      
+
       - name: Run tests
         run: pnpm run test
