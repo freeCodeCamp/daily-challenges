@@ -31,6 +31,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Copy environment file
+        run: cp sample.env .env
+
       - name: Run TypeScript linting
         run: pnpm run lint:ts
 
