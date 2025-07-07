@@ -19,7 +19,7 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
     if (!isValid(parsedDate)) {
       throw new HttpError(
         400,
-        `Invalid date: "${date}". Please use "M-D-YYYY"`
+        `Invalid date format: "${date}". Please use "M-D-YYYY"`
       );
     }
 

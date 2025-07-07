@@ -26,7 +26,7 @@ describe('routes', () => {
       expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('error');
       expect(response.body.error).toEqual(
-        'Invalid calendar date: "99-99-9999"'
+        'Invalid date format: "99-99-9999". Please use "M-D-YYYY"'
       );
     });
 
