@@ -20,7 +20,15 @@ const seed = async () => {
 
   try {
     await client.connect();
-    await dailyCodingChallenges.drop();
+
+    const collections = await client
+      .db()
+      .listCollections({ name: dailyCodingChallenges.collectionName })
+      .toArray();
+
+    if (collections.length > 0) {
+      await dailyCodingChallenges.drop();
+    }
 
     const challenges = [];
     const todayUtcMidnight = getUtcMidnight(new Date());
@@ -31,7 +39,7 @@ const seed = async () => {
       challenges.push({
         _id: new ObjectId(),
         challengeNumber: daysToAdd - i - futureDaysToAdd,
-        date
+        date,
         ...challenge
       });
     }
