@@ -15,13 +15,6 @@ export default [
         // Node.js globals
         console: 'readonly',
         process: 'readonly',
-        Buffer: 'readonly',
-        __dirname: 'readonly',
-        __filename: 'readonly',
-        module: 'readonly',
-        require: 'readonly',
-        exports: 'readonly',
-        global: 'readonly',
         // Jest globals
         describe: 'readonly',
         it: 'readonly',
@@ -37,7 +30,6 @@ export default [
     rules: {
       // Basic JavaScript rules
       'no-unused-vars': 'off',
-      'no-undef': 'error',
       'prefer-const': 'error',
       'no-var': 'error',
       eqeqeq: ['error', 'always'],
