@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
     "target": "es2022",
-    "module": "Node18",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "allowJs": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
     "noEmit": true,
     "noUncheckedIndexedAccess": true
