@@ -29,7 +29,7 @@ const mockClient = client as jest.Mocked<typeof client>;
 function isoToSimpleDate(isoDate: string): string {
   const date = isoDate.split('T')[0] as string;
   const [year, month, day] = date.split('-') as [string, string, string];
-  return `${parseInt(month)}-${parseInt(day)}-${year}`;
+  return `${parseInt(year)}-${parseInt(month)}-${day}`;
 }
 
 const todayUsCentral = getNowUsCentral();
@@ -83,18 +83,18 @@ describe('routes', () => {
       expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('error');
       expect(response.body.error).toEqual(
-        'Invalid date format: "invalid-format". Please use "M-D-YYYY"'
+        'Invalid date format: "invalid-format". Please use "YYYY-MM-DD"'
       );
     });
 
     it('should return 400 for an invalid calendar date', async () => {
       const response = await request(app).get(
-        '/api/daily-challenge/date/99-99-9999'
+        '/api/daily-challenge/date/9999-99-99'
       );
       expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('error');
       expect(response.body.error).toEqual(
-        'Invalid date format: "99-99-9999". Please use "M-D-YYYY"'
+        'Invalid date format: "9999-99-99". Please use "YYYY-MM-DD"'
       );
     });
 
@@ -102,11 +102,11 @@ describe('routes', () => {
       mockDailyCodingChallenges.findOne.mockResolvedValue(null);
 
       const response = await request(app).get(
-        '/api/daily-challenge/date/1-1-1111'
+        '/api/daily-challenge/date/1111-1-1'
       );
       expect(response.status).toBe(404);
       expect(response.body).toHaveProperty('error');
-      expect(response.body.error).toEqual(`Challenge not found for "1-1-1111"`);
+      expect(response.body.error).toEqual(`Challenge not found for "1111-1-1"`);
     });
 
     it("should return 404 for tomorrow's date", async () => {

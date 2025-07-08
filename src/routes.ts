@@ -14,12 +14,12 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
   const { date } = req.params;
 
   try {
-    const parsedDate = parse(date, 'M-d-yyyy', new Date());
+    const parsedDate = parse(date, 'yyyy-MM-dd', new Date());
 
     if (!isValid(parsedDate)) {
       throw new HttpError(
         400,
-        `Invalid date format: "${date}". Please use "M-D-YYYY"`
+        `Invalid date format: "${date}". Please use "YYYY-MM-DD"`
       );
     }
 
@@ -36,6 +36,30 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
       return;
     } else {
       throw new HttpError(404, `Challenge not found for "${date}"`);
+    }
+  } catch (err) {
+    handleError(err, req, res);
+  }
+});
+
+// today's challenge
+router.get('/api/daily-challenge/today', async (req, res) => {
+  try {
+    // Get today's date in US Central timezone
+    const nowUsCentral = getNowUsCentral();
+
+    // Convert date to UTC at midnight for database lookup
+    const todayMidnightUtc = getUtcMidnight(nowUsCentral);
+
+    const challenge = await dailyCodingChallenges.findOne({
+      date: todayMidnightUtc
+    });
+
+    if (challenge) {
+      res.status(200).json(challenge);
+      return;
+    } else {
+      throw new HttpError(404, `Challenge not found for "${todayMidnightUtc}"`);
     }
   } catch (err) {
     handleError(err, req, res);
