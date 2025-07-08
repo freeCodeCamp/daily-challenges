@@ -45,11 +45,8 @@ router.get('/api/daily-challenge/date/:date', async (req, res) => {
 // today's challenge
 router.get('/api/daily-challenge/today', async (req, res) => {
   try {
-    // Get today's date in US Central timezone
-    const nowUsCentral = getNowUsCentral();
-
-    // Convert date to UTC at midnight for database lookup
-    const todayMidnightUtc = getUtcMidnight(nowUsCentral);
+    // UTC at midnight for database lookup
+    const todayMidnightUtc = getUtcMidnight(getNowUsCentral());
 
     const challenge = await dailyCodingChallenges.findOne({
       date: todayMidnightUtc
